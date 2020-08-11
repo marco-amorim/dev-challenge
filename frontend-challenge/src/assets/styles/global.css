@@ -1,0 +1,55 @@
+:root {
+	--color-background: #24292E;
+	--color-background-button: #808080;
+	--color-background-button-lighter: #ABB2BF;
+	--color-text-in-primary: #ffffff;
+	--color-text-base: #9da5b4;
+
+	font-size: 60%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	height: 100vh;
+}
+
+body {
+	background: var(--color-background);
+}
+
+#root {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+body,
+input,
+button,
+textarea {
+	font: 500 1.6rem Poppins;
+	color: var(--color-text-base);
+}
+
+button:focus {
+  border: none;
+  outline: none;
+}
+
+.container {
+	width: 90vw;
+	max-width: 700px;
+}
+
+@media (min-width: 700px) {
+	:root {
+		font-size: 62.5%;
+	}
+}
