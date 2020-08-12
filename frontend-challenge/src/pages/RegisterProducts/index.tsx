@@ -5,6 +5,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import './styles.css';
 import '../../assets/styles/glowing-button.css';
 import shoppingCartIcon from '../../assets/images/shopping-cart.png';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const defaultMaskOptions = {
 	prefix: 'R$',
@@ -26,30 +27,33 @@ const RegisterProducts = () => {
 		e.preventDefault();
 	}
 	return (
-		<div className="register-product">
-			<img src={shoppingCartIcon} alt="Logo Mission Shop" />
-			<form onSubmit={handleCreateProduct}>
-				<fieldset>
-					<legend>Product Name</legend>
-					<input name="name" type="text" />
-				</fieldset>
+		<React.Fragment>
+			<PageHeader />
+			<div className="register-product">
+				<img src={shoppingCartIcon} alt="Logo Mission Shop" />
+				<form onSubmit={handleCreateProduct}>
+					<fieldset>
+						<legend>Product Name</legend>
+						<input name="name" type="text" />
+					</fieldset>
 
-				<fieldset>
-					<legend>Product Price</legend>
-					<MaskedInput mask={currencyMask} />
-				</fieldset>
+					<fieldset>
+						<legend>Product Price</legend>
+						<MaskedInput mask={currencyMask} />
+					</fieldset>
 
-				<fieldset>
-					<legend>Product Image URL</legend>
-					<input name="imageUrl" type="text" />
-				</fieldset>
-				<fieldset>
-					<button className="glow-on-hover" type="submit">
-						Registrar Produto
-					</button>
-				</fieldset>
-			</form>
-		</div>
+					<fieldset>
+						<legend>Product Image URL</legend>
+						<input name="imageUrl" type="text" />
+					</fieldset>
+					<fieldset>
+						<button className="glow-on-hover" type="submit">
+							Register Product
+						</button>
+					</fieldset>
+				</form>
+			</div>
+		</React.Fragment>
 	);
 };
 
