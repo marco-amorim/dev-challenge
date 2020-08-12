@@ -8,31 +8,15 @@
 	margin-top: 1.5rem;
 }
 
-.register-product button {
-	margin-left: auto;
-	display: flex;
-	align-items: flex-end;
-	padding: 5px 10px;
-	background-color: var(--color-background-button);
-	border: none;
-	color: var(--color-text-in-primary);
-	margin-top: 1.5rem;
-	transition: background-color 0.2s;
-}
-
-.register-product button:hover {
-	background-color: var(--color-background-button-lighter);
-}
-
 .register-product input {
 	border-radius: 5px;
-  border: none;
-  outline: none;
-  padding: 2px 5px;
+	border: none;
+	outline: none;
+	padding: 2px 5px;
 }
 
 .register-product fieldset legend {
-  margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 .register-product img {
@@ -59,7 +43,7 @@
 
 	.register-product button {
 		margin-left: auto;
-    margin-right: auto;
-    margin-top: 4rem;
+		margin-right: auto;
+		margin-top: 4rem;
 	}
 }

@@ -9,8 +9,8 @@ const PageHeader = () => {
 			<div>
 				<Link to="/">Home</Link>
 				<Link to="/register">Register</Link>
-				<a href="">Products</a>
-				<a href="">Cart</a>
+				{/* <a href="">Products</a>
+				<a href="">Cart</a> */}
 			</div>
 		</nav>
 	);
