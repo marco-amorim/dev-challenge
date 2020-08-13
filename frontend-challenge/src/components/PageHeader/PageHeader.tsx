@@ -9,6 +9,7 @@ const PageHeader = () => {
 			<div>
 				<Link to="/">Home</Link>
 				<Link to="/register">Register</Link>
+				<Link to="/products">Products</Link>
 				{/* <a href="">Products</a>
 				<a href="">Cart</a> */}
 			</div>

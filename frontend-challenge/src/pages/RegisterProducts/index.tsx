@@ -21,30 +21,40 @@ const defaultMaskOptions = {
 };
 
 const RegisterProducts = () => {
+	const isMounted = useIsMounted();
+	const initialStorageValue = localStorage.getItem('products') || [];
 	const [name, setName] = useState('');
 	const [imageUrl, setImageUrl] = useState('');
 	const [price, setPrice] = useState('');
-	const initialStorageValue = localStorage.getItem('products') || [];
 	const [products, setProducts] = useState<any>(initialStorageValue);
-	const isMounted = useIsMounted();
 
 	const currencyMask = createNumberMask(defaultMaskOptions);
 
 	function handleCreateProduct(e: FormEvent) {
 		e.preventDefault();
 
-		const product = {
-			name,
-			price,
-			imageUrl,
-		};
+		if (!name || !price || !imageUrl) {
+			alert('Please fill all fields!');
+		} else {
+			const product = {
+				name,
+				price,
+				imageUrl,
+			};
 
-		setProducts([...products, product]);
+			setProducts([...products, product]);
+		}
 	}
 
 	useEffect(() => {
-		if (!isMounted) {
-			localStorage.setItem('prodcuts', JSON.stringify(products));
+		if (!isMounted && name && price && imageUrl) {
+			try {
+				localStorage.setItem('products', JSON.stringify(products));
+				alert('Product successfully registered!');
+			} catch (error) {
+				alert('Error, product not registered!');
+				console.log(error);
+			}
 		}
 	}, [products]);
 

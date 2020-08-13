@@ -1,8 +1,8 @@
 .page-header {
 	position: absolute;
 	top: 0px;
-  width: 100vw;
-  height: 5vh;
+	width: 100vw;
+	height: 5rem;
 }
 
 .page-header > div {
