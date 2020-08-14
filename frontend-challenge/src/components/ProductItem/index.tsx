@@ -24,11 +24,13 @@ const ProductItem: React.FC<ProductItemProps> = ({
 	onCart,
 }) => {
 	const [cartItems, SetCartItems] = useState<any>([]);
+	const [isOnCart, setIsOnCart] = useState(false);
 	const isMounted = useIsMounted();
 
 	function handleAddToCart() {
 		if (!product.isOnCart) {
 			product.isOnCart = true;
+			setIsOnCart(true);
 			SetCartItems([...cartItems, product]);
 		}
 	}
@@ -37,6 +39,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
 		SetCartItems([]);
 		if (product.isOnCart) {
 			product.isOnCart = false;
+			setIsOnCart(false);
 			JSON.parse(localStorage.getItem('cart') || '[]').map(
 				(productItem: typeof product) => {
 					if (!productItem.isOnCart) {
@@ -61,7 +64,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
 				console.log(error);
 			}
 		}
-	}, [cartItems]);
+	}, [cartItems, isOnCart]);
 
 	return (
 		<div key={index} className="row product-item">

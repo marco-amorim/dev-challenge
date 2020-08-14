@@ -7,7 +7,7 @@ import ProductItem from '../../components/ProductItem';
 const ShoppingCart = () => {
 	const localStorageData = localStorage.getItem('cart') || '[]';
 	const [totalPrice, setTotalPrice] = useState(0);
-	let showTotalCost = false;
+	
 
 	useEffect(() => {
 		let total = 0;
