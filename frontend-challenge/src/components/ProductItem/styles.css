@@ -1,0 +1,7 @@
+.product-item img {
+	height: 100%;
+}
+
+.product-item + .product-item {
+	margin-top: 5rem;
+}

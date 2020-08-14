@@ -1,9 +1,10 @@
-import React, { FormEvent, useState, useEffect, useCallback } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import MaskedInput from 'react-text-mask';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 import './styles.css';
 import shoppingCartIcon from '../../assets/images/shopping-cart.png';
+import warningIcon from '../../assets/images/alert-octagon.svg';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { useIsMounted } from '../../hooks/useIsMounted';
 
@@ -11,9 +12,9 @@ const defaultMaskOptions = {
 	prefix: '',
 	suffix: '',
 	includeThousandsSeparator: true,
-	thousandsSeparatorSymbol: ',',
+	thousandsSeparatorSymbol: '.',
 	allowDecimal: true,
-	decimalSymbol: '.',
+	decimalSymbol: ',',
 	decimalLimit: 2,
 	integerLimit: 7,
 	allowNegative: false,
@@ -22,24 +23,26 @@ const defaultMaskOptions = {
 
 const RegisterProducts = () => {
 	const isMounted = useIsMounted();
-	const initialStorageValue = localStorage.getItem('products') || [];
+	const initialStorageValue = localStorage.getItem('products') || '[]';
 	const [name, setName] = useState('');
 	const [imageUrl, setImageUrl] = useState('');
 	const [price, setPrice] = useState('');
-	const [products, setProducts] = useState<any>(initialStorageValue);
+	const [isOnCart, setIsOnCart] = useState(false);
+	const [products, setProducts] = useState<any>(
+		JSON.parse(initialStorageValue)
+	);
 
 	const currencyMask = createNumberMask(defaultMaskOptions);
 
 	function handleCreateProduct(e: FormEvent) {
 		e.preventDefault();
 
-		if (!name || !price || !imageUrl) {
-			alert('Please fill all fields!');
-		} else {
+		if (name && price && imageUrl) {
 			const product = {
 				name,
 				price,
 				imageUrl,
+				isOnCart,
 			};
 
 			setProducts([...products, product]);
@@ -51,11 +54,15 @@ const RegisterProducts = () => {
 			try {
 				localStorage.setItem('products', JSON.stringify(products));
 				alert('Product successfully registered!');
+				setName('');
+				setPrice('');
+				setImageUrl('');
 			} catch (error) {
 				alert('Error, product not registered!');
 				console.log(error);
 			}
 		}
+		console.log(products);
 	}, [products]);
 
 	return (
@@ -94,7 +101,25 @@ const RegisterProducts = () => {
 						/>
 					</fieldset>
 					<fieldset>
-						<button type="submit">Register Product</button>
+						<div className="row">
+							<div className="register-fill-form-warning">
+								{!name || !price || !imageUrl ? (
+									<div className="register-fill-form-icon">
+										<img src={warningIcon} alt="" />
+										Fill all items
+									</div>
+								) : null}
+
+								<button
+									type="submit"
+									{...(name && price && imageUrl
+										? { disabled: false }
+										: { disabled: true })}
+								>
+									Register Product
+								</button>
+							</div>
+						</div>
 					</fieldset>
 				</form>
 			</div>

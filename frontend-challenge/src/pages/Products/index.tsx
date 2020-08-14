@@ -1,13 +1,14 @@
 import React from 'react';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import ProductsList from '../../components/ProductsList';
 
-const ProductsList = () => {
+const Products = () => {
 	return (
 		<React.Fragment>
 			<PageHeader />
-			{localStorage.length}
+			<ProductsList />
 		</React.Fragment>
 	);
 };
 
-export default ProductsList;
+export default Products;
