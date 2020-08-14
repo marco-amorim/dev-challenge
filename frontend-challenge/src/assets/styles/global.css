@@ -17,7 +17,7 @@
 html,
 body,
 #root {
-	height: 100vh;
+	/* height: 50vh; */
 }
 
 body {
@@ -83,4 +83,9 @@ a:hover {
 	:root {
 		font-size: 62.5%;
 	}
+}
+
+#root > div {
+	position: absolute;
+	top: 15rem;
 }

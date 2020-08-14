@@ -1,22 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import defaultProductIcon from '../../assets/images/default-product.png';
 
 import './styles.css';
+import { useIsMounted } from '../../hooks/useIsMounted';
 
 export interface Product {
 	name: string;
 	price: string;
 	imageUrl: string;
-	isOnCart: string;
+	isOnCart: boolean;
 }
 
 interface ProductItemProps {
-  product: Product;
-  index: number;
+	product: Product;
+	index: number;
+	onCart?: boolean;
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({ product, index }) => {
+const ProductItem: React.FC<ProductItemProps> = ({
+	product,
+	index,
+	onCart,
+}) => {
+	const [cartItems, SetCartItems] = useState<any>([]);
+	const isMounted = useIsMounted();
+
+	function handleAddToCart() {
+		if (!product.isOnCart) {
+			product.isOnCart = true;
+			SetCartItems([...cartItems, product]);
+		}
+	}
+
+	function handleRemoveFromCart() {
+		SetCartItems([]);
+		if (product.isOnCart) {
+			product.isOnCart = false;
+			JSON.parse(localStorage.getItem('cart') || '[]').map(
+				(productItem: typeof product) => {
+					if (!productItem.isOnCart) {
+						SetCartItems([...cartItems, productItem]);
+					}
+				}
+			);
+		}
+	}
+
+	useEffect(() => {
+		if (!isMounted) {
+			try {
+				localStorage.setItem('cart', JSON.stringify(cartItems));
+				if (!product.isOnCart) {
+					alert('Product removed from Cart!');
+				} else {
+					alert('Product added to Cart!');
+				}
+			} catch (error) {
+				alert('Error, adding product to Cart!');
+				console.log(error);
+			}
+		}
+	}, [cartItems]);
+
 	return (
 		<div key={index} className="row product-item">
 			<div className="col-lg-8 mx-auto">
@@ -28,7 +74,18 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, index }) => {
 								<div className="d-flex align-items-center justify-content-between mt-1">
 									<h5 className="font-weight-bold my-2">R$ {product.price}</h5>
 								</div>
-								<button className="mr-auto ml-0">Add to Cart</button>
+								{onCart === false ? (
+									<button onClick={handleAddToCart} className="mr-auto ml-0">
+										Add to Cart
+									</button>
+								) : (
+									<button
+										onClick={handleRemoveFromCart}
+										className="mr-auto ml-0"
+									>
+										Remove
+									</button>
+								)}
 							</div>
 							<img
 								src={product.imageUrl ? product.imageUrl : defaultProductIcon}
