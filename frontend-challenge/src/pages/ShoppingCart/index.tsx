@@ -7,6 +7,8 @@ import ProductItem from '../../components/ProductItem';
 const ShoppingCart = () => {
 	const localStorageData = localStorage.getItem('cart') || '[]';
 	const [totalPrice, setTotalPrice] = useState(0);
+	const [isOnCart, setIsOnCart] = useState(true);
+
 	
 
 	useEffect(() => {
@@ -16,6 +18,10 @@ const ShoppingCart = () => {
 		});
 		setTotalPrice(total);
 	}, [totalPrice]);
+
+	useEffect(() => {
+		// TODO: figure logic for remving item from screen once removed with click on button
+	}, [isOnCart])
 
 	return (
 		<React.Fragment>
@@ -28,7 +34,7 @@ const ShoppingCart = () => {
 									key={index}
 									product={product}
 									index={index}
-									onCart={true}
+									onCart={isOnCart}
 								/>
 							);
 					  })
